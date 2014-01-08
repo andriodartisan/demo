@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/top_Layout_height"
+    android:background="@color/top_titleColor" >
+    
+ 	<RelativeLayout
+        android:id="@+id/i8_title_layout_rl"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:id="@+id/net_warning_loading_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5sp"
+            android:visibility="gone" >
+
+            <ImageView
+                android:id="@+id/net_warning_loading_img_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/net_waring_loading_bg" />
+
+            <TextView
+                android:id="@+id/net_warning_loading_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="1sp"
+                android:text="战时这样" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/i8_title_back_button"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/i8_title_btn_back_bg"
+            android:background="@drawable/i8_title_btn_back_bg_select"
+            android:textSize="15sp" 
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/i8_title_text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="45dip"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="@color/default_BlackColor"
+            android:textSize="@dimen/top_title_size" />
+
+        <Button
+            android:id="@+id/i8_title_item_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10sp"
+            android:textColor="@color/default_whiteColor"
+            android:textSize="15sp"
+            android:visibility="gone"
+             />
+
+        <ImageView
+            android:id="@+id/i8_title_right_img"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10sp"
+            android:src="@drawable/selector_btn_person_info_more"
+            android:padding="5sp"
+            android:visibility="gone"
+            />
+        <ImageView
+            android:id="@+id/i8_title_center_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/card_membership_card_title_bg"
+            android:visibility="gone"
+            />
+    </RelativeLayout>
+    
+</RelativeLayout>

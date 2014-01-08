@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">zenyan</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+	<string name="publish_images">发表</string>
+	<string name="publish_content_button">文本</string>
+    <string name="publish_link_button">链接</string>
+	<string name="publish_images_button">图片</string>
+</resources>

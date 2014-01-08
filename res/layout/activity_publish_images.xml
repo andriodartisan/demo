@@ -1,0 +1,10 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/oceanx_Color"
+     >
+	<include
+        android:id="@+id/i8_title_layout"
+        layout="@layout/activity_title_top_layout" />
+
+</RelativeLayout>
