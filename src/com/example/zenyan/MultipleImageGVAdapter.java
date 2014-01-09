@@ -56,24 +56,11 @@ public class MultipleImageGVAdapter extends BaseAdapter{
 			holder = (ViewHolder) convertView.getTag();
 		}
 		
-		
-		if(position != 0){
-			if(position == (photoPath.size() - 1)){
-//				if(photoPath.get(position).toString() == Common.IMAGE_UNSPECIFIED){
-				holder.setting_blacklist_item_image.setTag(IMAGE_UNSPECIFIED);
-				holder.setting_blacklist_item_image.setImageResource(R.drawable.selector_setting_blacklist_add);
-			}else{
-				holder.setting_blacklist_item_image.setTag(photoPath.get( position + 1).toString());
-			}
-			loadLocalBitmap(holder.setting_blacklist_item_image);
+		if(position == (photoPath.size() - 1)){
+			holder.setting_blacklist_item_image.setTag(IMAGE_UNSPECIFIED);
+			holder.setting_blacklist_item_image.setImageResource(R.drawable.selector_setting_blacklist_add);
 		}else{
-			if(position == (photoPath.size() - 1)){
-//				if(photoPath.get(position).toString() == Common.IMAGE_UNSPECIFIED){
-				holder.setting_blacklist_item_image.setTag(IMAGE_UNSPECIFIED);
-				holder.setting_blacklist_item_image.setImageResource(R.drawable.selector_setting_blacklist_add);
-			}else{
-				holder.setting_blacklist_item_image.setTag(photoPath.get( position + 1).toString());
-			}
+			holder.setting_blacklist_item_image.setTag(photoPath.get( position + 1).toString());
 			loadLocalBitmap(holder.setting_blacklist_item_image);
 		}
 		
@@ -81,23 +68,23 @@ public class MultipleImageGVAdapter extends BaseAdapter{
 	}
 	
 	private void loadLocalBitmap(ImageView imageView){
-		 // Í¼Æ¬Ëù¶ÔÓ¦µÄurl,Õâ¸öÖµÔÚ¼ÓÔØÍ¼Æ¬¹ý³ÌÖÐºÜ¿ÉÄÜ»á±»¸Ä±ä  
+		 // Í¼Æ¬ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½url,ï¿½ï¿½ï¿½Öµï¿½Ú¼ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½ÐºÜ¿ï¿½ï¿½Ü»á±»ï¿½Ä±ï¿½  
         String path = (String) imageView.getTag();
-        Bitmap bitmap = getLoacalBitmap(path); //´Ó±¾µØÈ¡Í¼Æ¬(ÔÚcdcardÖÐ»ñÈ¡)
+        Bitmap bitmap = getLoacalBitmap(path); //ï¿½Ó±ï¿½ï¿½ï¿½È¡Í¼Æ¬(ï¿½ï¿½cdcardï¿½Ð»ï¿½È¡)
         if(bitmap != null){
-        	imageView.setImageBitmap(bitmap); //ÉèÖÃBitmap
+        	imageView.setImageBitmap(bitmap); //ï¿½ï¿½ï¿½ï¿½Bitmap
         }
 	}
 	
 	/**
-    * ¼ÓÔØ±¾µØÍ¼Æ¬
+    * ï¿½ï¿½ï¿½Ø±ï¿½ï¿½ï¿½Í¼Æ¬
     * @param url
     * @return
     */
     public static Bitmap getLoacalBitmap(String url) {
          try {
               FileInputStream fis = new FileInputStream(url);
-              return BitmapFactory.decodeStream(fis);  ///°ÑÁ÷×ª»¯ÎªBitmapÍ¼Æ¬        
+              return BitmapFactory.decodeStream(fis);  ///ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½ÎªBitmapÍ¼Æ¬        
            } catch (FileNotFoundException e) {
               e.printStackTrace();
               return null;
@@ -105,7 +92,7 @@ public class MultipleImageGVAdapter extends BaseAdapter{
     }
     
 	/**
-	 * ÉèÖÃºÚÃûµ¥gridViewÄÚÈÝ¸¨ÖúÀà
+	 * ï¿½ï¿½ï¿½Ãºï¿½ï¿½ï¿½gridViewï¿½ï¿½ï¿½Ý¸ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	class ViewHolder {
 		private ImageView setting_blacklist_item_image;

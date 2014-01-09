@@ -38,10 +38,11 @@ public class PublishImagesActivity extends Activity {
 	private ArrayList<String> photoPath = null;
 	private String filePath = null;
 	
-	private AlertDialog alert; // µ¯³ö¿ò¶ÔÏó
+	private AlertDialog alert; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	private Handler handler = new Handler(){
 		public void handleMessage(android.os.Message msg) {
+			System.out.println(filePath);
 			switch (msg.what) {
 			case Common.getNewversionOK:
 				multipleImageGVAdapter.addPhoto(filePath);
@@ -91,11 +92,11 @@ public class PublishImagesActivity extends Activity {
 						public void onClick(DialogInterface dialog, int item) {
 							switch(item) {
 								case 0:
-									// ´ÓÏà²áÖÐÑ¡Ôñ
+									// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
 									getByAlbum();
 									break;
 								case 1:
-									// ÅÄÕÕ
+									// ï¿½ï¿½ï¿½ï¿½
 									getByCamera();
 									break;
 								case 2:
@@ -120,7 +121,7 @@ public class PublishImagesActivity extends Activity {
 	}
 
 	/**
-	 *  ´ÓÏà²áÖÐÑ¡ÔñÍ¼Æ¬
+	 *  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½Í¼Æ¬
 	 */
 	private void getByAlbum(){
 		Intent intent = new Intent(Intent.ACTION_PICK, null);
@@ -129,7 +130,7 @@ public class PublishImagesActivity extends Activity {
 	}
 	
 	/**
-	 * ÅÄÕÕ
+	 * ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void getByCamera(){
 		
@@ -150,7 +151,7 @@ public class PublishImagesActivity extends Activity {
 	}
 	
 	/**
-	 * Ñ¹ËõÍ¼Æ¬
+	 * Ñ¹ï¿½ï¿½Í¼Æ¬
 	 */
 	Runnable compressedImgXiangCe = new Runnable() {
 		
@@ -161,7 +162,7 @@ public class PublishImagesActivity extends Activity {
 				return;
 			}
 			ContentResolver resolver = getContentResolver();
-			Uri originalUri = Uri.parse(filePath); //»ñµÃÍ¼Æ¬µÄuri
+			Uri originalUri = Uri.parse(filePath); //ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½uri
 			try {
 				Bitmap bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
 				
@@ -186,12 +187,12 @@ public class PublishImagesActivity extends Activity {
 	};
 	
 	/**
-	 * ·½·¨Ãû³Æ£ºsaveCompressBitmapToSD ÄÚÈÝÕªÒª£º±£´æÍ¼Æ¬ÖÁ±¾µØ
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½saveCompressBitmapToSD ï¿½ï¿½ï¿½ï¿½ÕªÒªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½qï¿½ï¿½ï¿½
 	 * 
 	 * @param filePathName
-	 *            ±£´æµÄÂ·¾¶ºÍÃû³Æ
+	 *            ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 * @param compressBitmap
-	 *            Ðè±£´æµÄbitmap¶ÔÏó
+	 *            ï¿½è±£ï¿½ï¿½ï¿½bitmapï¿½ï¿½ï¿½ï¿½
 	 */
 	public static void saveCompressBitmapToSD(String filePathName,
 			Bitmap compressBitmap) {
@@ -200,11 +201,11 @@ public class PublishImagesActivity extends Activity {
 
 		try {
 			FileOutputStream fos = new FileOutputStream(sendPicturefile);
-			// Ñ¹ËõÎ»Í¼µ½Ö¸¶¨µÄOutputStream
+			// Ñ¹ï¿½ï¿½Î»Í¼ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½OutputStream
 			compressBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-			// Ë¢ÐÂ´Ë»º³åÇøµÄÊä³öÁ÷
+			// Ë¢ï¿½Â´Ë»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			fos.flush();
-			// ¹Ø±Õ´ËÊä³öÁ÷²¢ÊÍ·ÅÓë´ËÁ÷ÓÐ¹ØµÄËùÓÐÏµÍ³×ÊÔ´
+			// ï¿½Ø±Õ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¹Øµï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½Ô´
 			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -212,13 +213,18 @@ public class PublishImagesActivity extends Activity {
 	}
 	
 	/**
-	 * Í¼Æ¬±£´æÂ·¾¶
+	 * Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 	 * @return
 	 */
 	private String getImageFilePath(){
-		String filepath = Environment.getExternalStorageDirectory()
+		String filepath = Environment.getExternalStorageDirectory().getAbsolutePath()
 				+ File.separator + "zeyan"
-				+ File.separator + "zeyanImages"+ File.separator  + UUID.randomUUID().toString();
-		return filepath + ".jpeg";
+				+ File.separator + "zeyanImages" + File.separator ;
+		System.out.println(filepath);
+		File file =  new File(filepath);
+		if (!file.exists()) {  
+            file.mkdirs();  
+        }  
+		return filepath  + UUID.randomUUID().toString() +  ".jpeg";
 	}
 }
