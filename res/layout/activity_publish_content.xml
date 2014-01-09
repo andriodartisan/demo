@@ -1,0 +1,38 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/oceanx_Color"
+     >
+	<include
+        android:id="@+id/i8_title_layout"
+        layout="@layout/activity_title_top_layout" />
+	<EditText 
+	    android:id="@+id/title"
+	    android:layout_width="fill_parent"
+	    android:layout_height="50sp"
+	    android:layout_below="@+id/i8_title_layout"
+	    android:layout_marginTop="8sp"
+	    android:layout_marginLeft="8sp"
+	    android:layout_marginRight="8sp"
+	    android:gravity="center_vertical"
+        android:background="@drawable/i8chat_edittext_bg"
+        android:textColorHint="#8B8386"
+        android:hint="@string/publish_content_title_hint"
+        android:textSize="18sp"
+	    />
+	<EditText 
+	    android:id="@+id/content"
+	    android:layout_width="fill_parent"
+	    android:layout_height="150sp"
+	    android:layout_below="@+id/title"
+	    android:layout_marginTop="8sp"
+	    android:layout_marginLeft="8sp"
+	    android:layout_marginRight="8sp"
+	    android:gravity="top"
+        android:background="@drawable/i8chat_edittext_bg"
+        android:textColorHint="#8B8386"
+        android:hint="@string/publish_content_hint"
+        android:textSize="18sp"
+	    />
+	
+</RelativeLayout>

@@ -8,4 +8,14 @@
 	<string name="publish_content_button">文本</string>
     <string name="publish_link_button">链接</string>
 	<string name="publish_images_button">图片</string>
+	<string name="publish_images_message_hint">添加几张照片</string>
+	
+	<string name="publish_content_title_hint">写一个标题</string>
+	<string name="publish_link_title_hint">请输入一个连接</string>
+	<string name="publish_content_hint">请输入您要发表的内容</string>
+	
+	<string name="setting_title_upload">选择获取图片方式</string>
+	<string name="setting_getbyxiangce">从相册获取图片</string>
+	<string name="setting_getbycamera">拍一张照片</string>
+	<string name="cancel">取消</string>
 </resources>

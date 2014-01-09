@@ -1,8 +1,29 @@
 package com.example.zenyan;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.UUID;
+
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +32,26 @@ public class PublishImagesActivity extends Activity {
 	private ImageButton i8_title_back_button;
 	private ImageView i8_title_right_img;
 	private TextView i8_title_text_tv;
+	
+	GridView near_menu_bc_send_gv;
+	private MultipleImageGVAdapter multipleImageGVAdapter = null; 
+	private ArrayList<String> photoPath = null;
+	private String filePath = null;
+	
+	private AlertDialog alert; // 弹出框对象
+	
+	private Handler handler = new Handler(){
+		public void handleMessage(android.os.Message msg) {
+			switch (msg.what) {
+			case Common.getNewversionOK:
+				multipleImageGVAdapter.addPhoto(filePath);
+				photoPath.add(filePath);
+				break;
+			default:
+				break;
+			}
+		}
+	};
 	
 
 	@Override
@@ -24,16 +65,160 @@ public class PublishImagesActivity extends Activity {
 		i8_title_back_button = (ImageButton)findViewById(R.id.i8_title_back_button);
 		i8_title_right_img = (ImageView)findViewById(R.id.i8_title_right_img);
 		i8_title_text_tv = (TextView)findViewById(R.id.i8_title_text_tv);
+		near_menu_bc_send_gv = (GridView)findViewById(R.id.near_menu_bc_send_gv);
+		
 		i8_title_back_button.setVisibility(View.VISIBLE);
 		i8_title_right_img.setVisibility(View.VISIBLE);
 		i8_title_text_tv.setText(getResources().getString(R.string.publish_images));
 		i8_title_right_img.setImageResource(R.drawable.me_info_finish_btn);
+		
+		photoPath = new ArrayList<String>();
+		multipleImageGVAdapter = new MultipleImageGVAdapter(this);
+		near_menu_bc_send_gv.setAdapter(multipleImageGVAdapter);
+		
+		near_menu_bc_send_gv.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				// TODO Auto-generated method stub
+				if(arg2 == (photoPath.size())){
+					
+					final CharSequence[] items = { getString(R.string.setting_getbyxiangce),
+							getString(R.string.setting_getbycamera),getString(R.string.cancel) };
+					AlertDialog.Builder builder = new AlertDialog.Builder(PublishImagesActivity.this);
+					builder.setTitle(getString(R.string.setting_title_upload));
+					builder.setItems(items, new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int item) {
+							switch(item) {
+								case 0:
+									// 从相册中选择
+									getByAlbum();
+									break;
+								case 1:
+									// 拍照
+									getByCamera();
+									break;
+								case 2:
+									break;
+							}
+							alert.dismiss();
+						}
+					});
+					alert = builder.create();
+					alert.show();
+				}else {
+					
+				}
+			}
+		});
+		
+		i8_title_back_button.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				finish();
+			}
+		});
+	}
+
+	/**
+	 *  从相册中选择图片
+	 */
+	private void getByAlbum(){
+		Intent intent = new Intent(Intent.ACTION_PICK, null);
+		intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,Common.IMAGE_UNSPECIFIED);
+		startActivityForResult(intent, Common.IMAGE_RESULT_CODE_XIANGCe);
 	}
 	
-	/*public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}*/
+	/**
+	 * 拍照
+	 */
+	private void getByCamera(){
+		
+	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		switch (requestCode) {
+		case Common.IMAGE_RESULT_CODE_XIANGCe:
+			filePath = data.getData().toString();
+			handler.post(compressedImgXiangCe);
+			break;
+
+		default:
+			break;
+		}
+	}
+	
+	/**
+	 * 压缩图片
+	 */
+	Runnable compressedImgXiangCe = new Runnable() {
+		
+		@Override
+		public void run() {
+			// TODO Auto-generated method stub
+			if(filePath == null || "".equals(filePath)){
+				return;
+			}
+			ContentResolver resolver = getContentResolver();
+			Uri originalUri = Uri.parse(filePath); //获得图片的uri
+			try {
+				Bitmap bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
+				
+				filePath = getImageFilePath();
+				
+				saveCompressBitmapToSD(filePath, bm);
+				Message msg = new Message();
+				msg.what = Common.getNewversionOK;
+				msg.obj = filePath;
+				handler.sendMessage(msg);
+				if(bm != null){
+					bm.recycle();
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+	};
+	
+	/**
+	 * 方法名称：saveCompressBitmapToSD 内容摘要：保存图片至本地
+	 * 
+	 * @param filePathName
+	 *            保存的路径和名称
+	 * @param compressBitmap
+	 *            需保存的bitmap对象
+	 */
+	public static void saveCompressBitmapToSD(String filePathName,
+			Bitmap compressBitmap) {
+
+		File sendPicturefile = new File(filePathName);
+
+		try {
+			FileOutputStream fos = new FileOutputStream(sendPicturefile);
+			// 压缩位图到指定的OutputStream
+			compressBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+			// 刷新此缓冲区的输出流
+			fos.flush();
+			// 关闭此输出流并释放与此流有关的所有系统资源
+			fos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 图片保存路径
+	 * @return
+	 */
+	private String getImageFilePath(){
+		String filepath = Environment.getExternalStorageDirectory()
+				+ File.separator + "zeyan"
+				+ File.separator + "zeyanImages"+ File.separator  + UUID.randomUUID().toString();
+		return filepath + ".jpeg";
+	}
 }
