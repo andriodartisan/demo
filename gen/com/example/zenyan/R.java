@@ -136,11 +136,12 @@ public final class R {
         public static final int net_waring_loading_bg=0x7f020009;
         public static final int person_info_head_more_default=0x7f02000a;
         public static final int person_info_head_more_pressed=0x7f02000b;
-        public static final int selector_btn_person_info_more=0x7f02000c;
-        public static final int selector_setting_blacklist_add=0x7f02000d;
-        public static final int setting_blacklist_add_default=0x7f02000e;
-        public static final int setting_blacklist_add_pressed=0x7f02000f;
-        public static final int setting_common_bg_default=0x7f020010;
+        public static final int publish_image=0x7f02000c;
+        public static final int selector_btn_person_info_more=0x7f02000d;
+        public static final int selector_setting_blacklist_add=0x7f02000e;
+        public static final int setting_blacklist_add_default=0x7f02000f;
+        public static final int setting_blacklist_add_pressed=0x7f020010;
+        public static final int setting_common_bg_default=0x7f020011;
     }
     public static final class id {
         public static final int action_settings=0x7f090015;
@@ -160,9 +161,9 @@ public final class R {
         public static final int net_warning_loading_img_iv=0x7f09000d;
         public static final int net_warning_loading_layout=0x7f09000c;
         public static final int net_warning_loading_tv=0x7f09000e;
-        public static final int publish_content_button=0x7f090000;
-        public static final int publish_images_button=0x7f090002;
-        public static final int publish_link_button=0x7f090001;
+        public static final int publish_content_button=0x7f090001;
+        public static final int publish_image_button=0x7f090000;
+        public static final int publish_link_button=0x7f090002;
         public static final int title=0x7f090004;
         public static final int tv_layout=0x7f090008;
     }

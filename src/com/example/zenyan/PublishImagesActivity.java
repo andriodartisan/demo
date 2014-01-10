@@ -7,12 +7,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import com.example.zenyan.adapter.MultipleImageGVAdapter;
+import com.example.zenyan.util.Common;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -133,7 +137,11 @@ public class PublishImagesActivity extends Activity {
 	 * ����
 	 */
 	private void getByCamera(){
+		filePath = getImageFilePath();
 		
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(filePath)));
+		startActivityForResult(intent, Common.IMAGE_RESULT_CODE_CAMERA);
 	}
 
 	@Override
@@ -144,17 +152,42 @@ public class PublishImagesActivity extends Activity {
 			filePath = data.getData().toString();
 			handler.post(compressedImgXiangCe);
 			break;
-
+		case Common.IMAGE_RESULT_CODE_CAMERA:
+			if(filePath == null || "".equals(filePath)){
+				return;
+			}
+			File file = new File(filePath);
+			if(file.exists()){
+				handler.post(compressedImgCamera);
+			}else{
+			}
+			break;
 		default:
 			break;
 		}
 	}
-	
+	/**
+	 * 压缩图片
+	 */
+	Runnable compressedImgCamera = new Runnable() {
+		@Override
+		public void run() {
+			Bitmap bmp = getNativeImageForAppointSize(filePath);
+			saveCompressBitmapToSD(filePath, bmp);
+			
+			Message msg = new Message();
+			msg.what = Common.getNewversionOK;
+			msg.obj = filePath;
+			handler.sendMessage(msg);
+			if(bmp != null){
+				bmp.recycle();
+			}
+		}
+	};
 	/**
 	 * ѹ��ͼƬ
 	 */
 	Runnable compressedImgXiangCe = new Runnable() {
-		
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
@@ -165,9 +198,7 @@ public class PublishImagesActivity extends Activity {
 			Uri originalUri = Uri.parse(filePath); //���ͼƬ��uri
 			try {
 				Bitmap bm = MediaStore.Images.Media.getBitmap(resolver, originalUri);
-				
 				filePath = getImageFilePath();
-				
 				saveCompressBitmapToSD(filePath, bm);
 				Message msg = new Message();
 				msg.what = Common.getNewversionOK;
@@ -187,13 +218,38 @@ public class PublishImagesActivity extends Activity {
 	};
 	
 	/**
-	 * ������ƣ�saveCompressBitmapToSD ����ժҪ������ͼƬ�q���
+	 * 获取本地图片并指定高度和宽度（最大宽度：600；最大高度：1000）
 	 * 
-	 * @param filePathName
-	 *            �����·�������
-	 * @param compressBitmap
-	 *            �豣���bitmap����
+	 * @param imagePath
+	 *            图片路径
+	 * @return
 	 */
+	public static Bitmap getNativeImageForAppointSize(String imagePath) {
+
+		BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inJustDecodeBounds = true;
+		// 获取这个图片的宽和高
+		Bitmap myBitmap = BitmapFactory.decodeFile(imagePath, options); // 此时返回myBitmap为空
+
+		// 计算缩放比
+		int be = 1;
+		int wScale = (int) (options.outWidth / (float) 600 + 0.5);
+		int hScale = (int) (options.outWidth / (float) 1000 + 0.5);
+		if (wScale > 1 || hScale > 1) {
+			if (wScale > hScale) {
+				be = wScale;
+			} else {
+				be = hScale;
+			}
+		}
+		options.inSampleSize = be;
+
+		// 重新读入图片，注意这次要把options.inJustDecodeBounds 设为 false
+		options.inJustDecodeBounds = false;
+		myBitmap = BitmapFactory.decodeFile(imagePath, options);
+		return myBitmap;
+	}
+	
 	public static void saveCompressBitmapToSD(String filePathName,
 			Bitmap compressBitmap) {
 
@@ -201,11 +257,8 @@ public class PublishImagesActivity extends Activity {
 
 		try {
 			FileOutputStream fos = new FileOutputStream(sendPicturefile);
-			// ѹ��λͼ��ָ����OutputStream
 			compressBitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-			// ˢ�´˻�����������
 			fos.flush();
-			// �رմ�������ͷ�������йص�����ϵͳ��Դ
 			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
