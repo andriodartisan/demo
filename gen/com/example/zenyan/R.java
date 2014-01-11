@@ -13,9 +13,6 @@ public final class R {
     public static final class color {
         public static final int black=0x7f040019;
         public static final int chat_itemColor=0x7f040010;
-        /**  二维码===========================================
-         */
-        public static final int contents_text=0x7f040023;
         public static final int default_BlackColor=0x7f040003;
         public static final int default_BlackColor2=0x7f040004;
         /**  青不青蓝不蓝色 
@@ -39,13 +36,10 @@ public final class R {
         /**  Edittext提示语颜色
          */
         public static final int editText_hint_Color=0x7f04000e;
-        public static final int encode_view=0x7f040024;
         public static final int friend_add_tuijian_tv_color=0x7f040017;
         public static final int friend_chat_item_btn_send_Color=0x7f04000f;
         public static final int gray=0x7f04001c;
         public static final int graywhite=0x7f04001d;
-        public static final int help_button_view=0x7f040025;
-        public static final int help_view=0x7f040026;
         public static final int home_itemColor=0x7f040012;
         public static final int lightblue=0x7f04001b;
         /**  listView字体颜色1
@@ -60,19 +54,7 @@ public final class R {
         /**  客户端默认颜色 
          */
         public static final int oceanx_Color=0x7f040000;
-        public static final int possible_result_points=0x7f040027;
         public static final int red=0x7f04001a;
-        public static final int result_image_border=0x7f040028;
-        public static final int result_minor_text=0x7f040029;
-        public static final int result_points=0x7f04002a;
-        public static final int result_text=0x7f04002b;
-        public static final int result_view=0x7f04002c;
-        public static final int sbc_header_text=0x7f04002d;
-        public static final int sbc_header_view=0x7f04002e;
-        public static final int sbc_layout_view=0x7f040030;
-        public static final int sbc_list_item=0x7f04002f;
-        public static final int sbc_page_number_text=0x7f040031;
-        public static final int sbc_snippet_text=0x7f040032;
         public static final int search_itemColor=0x7f040014;
         /**  透明背景色 
          */
@@ -80,10 +62,6 @@ public final class R {
         /**  提示框蓝色字体 
          */
         public static final int setting_dialog_text_color=0x7f040021;
-        public static final int share_text=0x7f040033;
-        public static final int share_view=0x7f040034;
-        public static final int status_text=0x7f040036;
-        public static final int status_view=0x7f040035;
         /**  字体浅灰色 
          */
         public static final int text_qianhuise=0x7f040016;
@@ -99,10 +77,6 @@ public final class R {
         /**  50%黑色 
          */
         public static final int translucent_blackColor=0x7f040006;
-        public static final int transparent=0x7f040037;
-        public static final int viewfinder_frame=0x7f040038;
-        public static final int viewfinder_laser=0x7f040039;
-        public static final int viewfinder_mask=0x7f04003a;
         public static final int weiba_itemColor=0x7f040013;
         public static final int weibo_itemColor=0x7f040011;
         public static final int white=0x7f040018;
@@ -144,28 +118,27 @@ public final class R {
         public static final int setting_common_bg_default=0x7f020011;
     }
     public static final class id {
-        public static final int action_settings=0x7f090015;
+        public static final int action_settings=0x7f090014;
         public static final int content=0x7f090005;
         public static final int devider_line_1=0x7f090006;
-        public static final int devider_line_2=0x7f090009;
-        public static final int i8_title_back_button=0x7f09000f;
-        public static final int i8_title_center_img=0x7f090013;
-        public static final int i8_title_item_button=0x7f090011;
+        public static final int devider_line_2=0x7f090008;
+        public static final int i8_title_back_button=0x7f09000e;
+        public static final int i8_title_center_img=0x7f090012;
+        public static final int i8_title_item_button=0x7f090010;
         public static final int i8_title_layout=0x7f090003;
-        public static final int i8_title_layout_rl=0x7f09000b;
-        public static final int i8_title_right_img=0x7f090012;
-        public static final int i8_title_text_tv=0x7f090010;
-        public static final int item_sendbc_gv_img=0x7f090014;
-        public static final int near_menu_bc_send_et=0x7f090007;
-        public static final int near_menu_bc_send_gv=0x7f09000a;
-        public static final int net_warning_loading_img_iv=0x7f09000d;
-        public static final int net_warning_loading_layout=0x7f09000c;
-        public static final int net_warning_loading_tv=0x7f09000e;
+        public static final int i8_title_layout_rl=0x7f09000a;
+        public static final int i8_title_right_img=0x7f090011;
+        public static final int i8_title_text_tv=0x7f09000f;
+        public static final int item_sendbc_gv_img=0x7f090013;
+        public static final int near_menu_bc_send_gv=0x7f090009;
+        public static final int net_warning_loading_img_iv=0x7f09000c;
+        public static final int net_warning_loading_layout=0x7f09000b;
+        public static final int net_warning_loading_tv=0x7f09000d;
         public static final int publish_content_button=0x7f090001;
         public static final int publish_image_button=0x7f090000;
         public static final int publish_link_button=0x7f090002;
         public static final int title=0x7f090004;
-        public static final int tv_layout=0x7f090008;
+        public static final int tv_layout=0x7f090007;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;

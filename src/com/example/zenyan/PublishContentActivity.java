@@ -2,6 +2,8 @@ package com.example.zenyan;
 
 import java.util.HashMap;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -88,21 +90,25 @@ public class PublishContentActivity extends Activity implements OnClickListener 
 		map.put("latitude", "33");
 		map.put("longitude", "33");
 		map.put("locname", "深圳");
-		map.put("isphoto", "1");  
+		map.put("isphoto", "0");  
 		map.put("devicetype", "android");
 		map.put("userid","1");
 		map.put("username","admin");
-		boolean result = false;
+		JSONObject jsonObject = null;
 		try {
-			result = WSHelper.submitDataByDoGet(map, "post");
+			jsonObject = WSHelper.submitDataByHttpClientDoGet(map, "post");
+			if(jsonObject != null){
+				if(jsonObject.getString("code") == "0" || jsonObject.getString("code").equals("0")){
+					Toast.makeText(this, "publish success!", Toast.LENGTH_LONG).show();
+				}
+				
+			}else{
+				Toast.makeText(this, "pubish failed!", Toast.LENGTH_LONG).show();
+			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(result){
-			Toast.makeText(this, "pubish success!", Toast.LENGTH_LONG).show();
-		}else{
-			Toast.makeText(this, "pubish failed!", Toast.LENGTH_LONG).show();
-		}
+		finish();
 	}
 }
