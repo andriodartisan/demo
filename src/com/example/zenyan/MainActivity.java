@@ -18,6 +18,7 @@ public class MainActivity extends Activity implements  OnClickListener {
 		initDate();
 	}
 	
+	//初始化
 	private void initDate(){
 		publish_image_button = (ImageButton)findViewById(R.id.publish_image_button);
 		publish_content_button = (ImageButton)findViewById(R.id.publish_content_button);
